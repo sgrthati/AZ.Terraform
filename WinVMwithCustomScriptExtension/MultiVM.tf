@@ -18,13 +18,13 @@ provider "azurerm" {
 }
 resource "azurerm_resource_group" "RG1" {
   name     = var.resource_groups
-  location = "East US"
+  location = var.location
 }
 resource "azurerm_network_security_group" "NSG" {
-    name = var.NSG
-    location =  azurerm_resource_group.RG1.location
-    resource_group_name = azurerm_resource_group.RG1.name
- security_rule {
+  name                = var.NSG
+  location            = azurerm_resource_group.RG1.location
+  resource_group_name = azurerm_resource_group.RG1.name
+  security_rule {
     name                       = "allow RDP"
     priority                   = 100
     direction                  = "Inbound"
@@ -35,7 +35,7 @@ resource "azurerm_network_security_group" "NSG" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
- security_rule {
+  security_rule {
     name                       = "allow HTTP"
     priority                   = 200
     direction                  = "Inbound"
@@ -58,7 +58,11 @@ resource "azurerm_subnet" "SUBNET1" {
   name                 = var.subnet
   resource_group_name  = azurerm_resource_group.RG1.name
   virtual_network_name = azurerm_virtual_network.VNET.name
-  address_prefixes      = ["10.0.2.0/24"]
+  address_prefixes     = ["10.0.2.0/24"]
+}
+resource "azurerm_virtual_network_dns_servers" "DNS" {
+  virtual_network_id = azurerm_virtual_network.VNET.id
+  dns_servers        = ["8.8.8.8", "168.63.129.16"]
 }
 resource "azurerm_public_ip" "PIP" {
   count               = var.VMcount
@@ -77,7 +81,7 @@ resource "azurerm_network_interface" "NIC" {
     name                          = "IPCONFIG1"
     subnet_id                     = azurerm_subnet.SUBNET1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.PIP[count.index].id
+    public_ip_address_id          = "${azurerm_public_ip.PIP[count.index].id}"
   }
 }
 resource "azurerm_windows_virtual_machine" "VM" {
@@ -104,18 +108,19 @@ resource "azurerm_windows_virtual_machine" "VM" {
     version   = "latest"
   }
 }
-resource "azurerm_virtual_machine_extension" "test" {
+resource "azurerm_virtual_machine_extension" "Scripting" {
   name                       = var.VM
-  virtual_machine_name       =  "SRIVM-${count.index}"
-  publisher                  = "Microsoft.Azure.Extensions"
-  type                       = "CustomScript"
-  type_handler_version       = "2.1"
+  count                      = var.VMcount
+  virtual_machine_id         = "${azurerm_windows_virtual_machine.VM[count.index].id}"
+  publisher                  = "Microsoft.Compute"
+  type                       = "CustomScriptExtension"
+  type_handler_version       = "1.9"
   auto_upgrade_minor_version = true
 
 
   protected_settings = <<PROTECTED_SETTINGS
     {
-            "commandToExecute": "sh java.ps1",
+            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File Java.ps1",
             "storageAccountName": "${var.StorageAccountName}",
             "storageAccountKey": "${var.StorgaeAccountKey}",
             "fileUris": [

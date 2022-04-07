@@ -27,11 +27,11 @@ variable "VMcount" {
   default = 2
 }
 variable "FileUri" {
-  default = "https://sagarsri.blob.core.windows.net/scripts/Java.ps1"
+  default = "https://sagarsri1.blob.core.windows.net/scripts/Java.ps1"
 }
 variable "StorageAccountName" {
-  default = "sagarsri"
+  default = "sagarsri1"
 }
 variable "StorgaeAccountKey" {
-  default = "UDrvIsQaViZXxnxP6jAF6aky4w0H0X+1FB7DxfhLJXLhKS6xbu6gCkGiDUOWQDbPXA8Zfr+wi3ZP+AStFfPkfQ=="
+  default = "hHdSC4TudSd2O608CAYgAgwZo3XHKp2HEGjmnUWoQyb2r1lnJgE/Fa01PDqXLc0MAkbLgdXgnR6mi5zWim9xTA=="
 }
