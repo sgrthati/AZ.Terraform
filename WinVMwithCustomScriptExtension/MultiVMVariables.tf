@@ -33,5 +33,5 @@ variable "StorageAccountName" {
   default = "sagarsri1"
 }
 variable "StorgaeAccountKey" {
-  default = "hHdSC4TudSd2O608CAYgAgwZo3XHKp2HEGjmnUWoQyb2r1lnJgE/Fa01PDqXLc0MAkbLgdXgnR6mi5zWim9xTA=="
+  default = ">STORAGE ACCOUNT KEY<"
 }
