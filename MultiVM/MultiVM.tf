@@ -25,7 +25,7 @@ resource "azurerm_network_security_group" "NSG" {
     location =  azurerm_resource_group.RG1.location
     resource_group_name = azurerm_resource_group.RG1.name
  security_rule {
-    name                       = "allow RDP"
+    name                       = "allow_RDP"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "NSG" {
     destination_address_prefix = "*"
   }
  security_rule {
-    name                       = "allow HTTP"
+    name                       = "allow_HTTP"
     priority                   = 200
     direction                  = "Inbound"
     access                     = "Allow"
