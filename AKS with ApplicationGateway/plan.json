@@ -1,0 +1,459 @@
+data.azuread_client_config.current: Reading...
+data.azuread_client_config.current: Read complete after 0s [id=4fe7c45d-c92c-4263-8b48-3789c3963653-04b07795-8ddb-461a-bbee-02f9e1bf7b46-4d3f170a-f6c0-4dc0-b544-486f1b44d353]
+data.azurerm_kubernetes_service_versions.current: Reading...
+data.azurerm_kubernetes_service_versions.current: Read complete after 2s [id=/subscriptions/549e90a6-40ca-4c76-8aa8-8f6ea2a287f4/providers/Microsoft.ContainerService/locations/centralindia]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.azurerm_user_assigned_identity.aks_agw_uid will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "azurerm_user_assigned_identity" "aks_agw_uid" {
+      + client_id           = (known after apply)
+      + id                  = (known after apply)
+      + location            = (known after apply)
+      + name                = "ingressapplicationgateway-SRI-AKS"
+      + principal_id        = (known after apply)
+      + resource_group_name = "SRI-AKS-RG"
+      + tags                = (known after apply)
+      + tenant_id           = (known after apply)
+
+      + timeouts {
+          + read = (known after apply)
+        }
+    }
+
+  # azuread_group.myteam will be created
+  + resource "azuread_group" "myteam" {
+      + auto_subscribe_new_members     = (known after apply)
+      + display_name                   = "sub_owners"
+      + external_senders_allowed       = (known after apply)
+      + hide_from_address_lists        = (known after apply)
+      + hide_from_outlook_clients      = (known after apply)
+      + id                             = (known after apply)
+      + mail                           = (known after apply)
+      + mail_nickname                  = (known after apply)
+      + members                        = (known after apply)
+      + object_id                      = (known after apply)
+      + onpremises_domain_name         = (known after apply)
+      + onpremises_group_type          = (known after apply)
+      + onpremises_netbios_name        = (known after apply)
+      + onpremises_sam_account_name    = (known after apply)
+      + onpremises_security_identifier = (known after apply)
+      + onpremises_sync_enabled        = (known after apply)
+      + owners                         = [
+          + "4d3f170a-f6c0-4dc0-b544-486f1b44d353",
+        ]
+      + preferred_language             = (known after apply)
+      + prevent_duplicate_names        = false
+      + proxy_addresses                = (known after apply)
+      + security_enabled               = true
+      + visibility                     = (known after apply)
+      + writeback_enabled              = false
+    }
+
+  # azurerm_kubernetes_cluster.aks will be created
+  + resource "azurerm_kubernetes_cluster" "aks" {
+      + api_server_authorized_ip_ranges     = (known after apply)
+      + dns_prefix                          = "SRI-aks"
+      + fqdn                                = (known after apply)
+      + http_application_routing_zone_name  = (known after apply)
+      + id                                  = (known after apply)
+      + image_cleaner_enabled               = false
+      + image_cleaner_interval_hours        = 48
+      + kube_admin_config                   = (sensitive value)
+      + kube_admin_config_raw               = (sensitive value)
+      + kube_config                         = (sensitive value)
+      + kube_config_raw                     = (sensitive value)
+      + kubernetes_version                  = "1.25.6"
+      + location                            = "centralindia"
+      + name                                = "SRI-AKS"
+      + node_resource_group                 = (known after apply)
+      + node_resource_group_id              = (known after apply)
+      + oidc_issuer_url                     = (known after apply)
+      + portal_fqdn                         = (known after apply)
+      + private_cluster_enabled             = false
+      + private_cluster_public_fqdn_enabled = false
+      + private_dns_zone_id                 = (known after apply)
+      + private_fqdn                        = (known after apply)
+      + public_network_access_enabled       = true
+      + resource_group_name                 = "SRI-AKS-RG"
+      + role_based_access_control_enabled   = true
+      + run_command_enabled                 = true
+      + sku_tier                            = "Free"
+      + workload_identity_enabled           = false
+
+      + api_server_access_profile {
+          + authorized_ip_ranges     = (known after apply)
+          + subnet_id                = (known after apply)
+          + vnet_integration_enabled = (known after apply)
+        }
+
+      + auto_scaler_profile {
+          + balance_similar_node_groups      = (known after apply)
+          + empty_bulk_delete_max            = (known after apply)
+          + expander                         = (known after apply)
+          + max_graceful_termination_sec     = (known after apply)
+          + max_node_provisioning_time       = (known after apply)
+          + max_unready_nodes                = (known after apply)
+          + max_unready_percentage           = (known after apply)
+          + new_pod_scale_up_delay           = (known after apply)
+          + scale_down_delay_after_add       = (known after apply)
+          + scale_down_delay_after_delete    = (known after apply)
+          + scale_down_delay_after_failure   = (known after apply)
+          + scale_down_unneeded              = (known after apply)
+          + scale_down_unready               = (known after apply)
+          + scale_down_utilization_threshold = (known after apply)
+          + scan_interval                    = (known after apply)
+          + skip_nodes_with_local_storage    = (known after apply)
+          + skip_nodes_with_system_pods      = (known after apply)
+        }
+
+      + azure_active_directory_role_based_access_control {
+          + admin_group_object_ids = (known after apply)
+          + azure_rbac_enabled     = false
+          + managed                = true
+          + tenant_id              = (known after apply)
+        }
+
+      + default_node_pool {
+          + enable_auto_scaling         = true
+          + kubelet_disk_type           = (known after apply)
+          + max_count                   = 10
+          + max_pods                    = 2
+          + min_count                   = 1
+          + name                        = "default"
+          + node_count                  = 1
+          + node_labels                 = (known after apply)
+          + orchestrator_version        = (known after apply)
+          + os_disk_size_gb             = (known after apply)
+          + os_disk_type                = "Managed"
+          + os_sku                      = (known after apply)
+          + scale_down_mode             = "Delete"
+          + temporary_name_for_rotation = "SRI-TempNode"
+          + type                        = "VirtualMachineScaleSets"
+          + ultra_ssd_enabled           = false
+          + vm_size                     = "Standard_D2_v2"
+          + vnet_subnet_id              = (known after apply)
+          + workload_runtime            = (known after apply)
+        }
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + ingress_application_gateway {
+          + effective_gateway_id                 = (known after apply)
+          + gateway_id                           = (known after apply)
+          + ingress_application_gateway_identity = (known after apply)
+          + subnet_id                            = (known after apply)
+        }
+
+      + kubelet_identity {
+          + client_id                 = (known after apply)
+          + object_id                 = (known after apply)
+          + user_assigned_identity_id = (known after apply)
+        }
+
+      + network_profile {
+          + dns_service_ip     = (known after apply)
+          + docker_bridge_cidr = (known after apply)
+          + ip_versions        = (known after apply)
+          + load_balancer_sku  = "standard"
+          + network_mode       = (known after apply)
+          + network_plugin     = "azure"
+          + network_policy     = (known after apply)
+          + outbound_type      = "loadBalancer"
+          + pod_cidr           = (known after apply)
+          + pod_cidrs          = (known after apply)
+          + service_cidr       = (known after apply)
+          + service_cidrs      = (known after apply)
+
+          + load_balancer_profile {
+              + effective_outbound_ips      = (known after apply)
+              + idle_timeout_in_minutes     = (known after apply)
+              + managed_outbound_ip_count   = (known after apply)
+              + managed_outbound_ipv6_count = (known after apply)
+              + outbound_ip_address_ids     = (known after apply)
+              + outbound_ip_prefix_ids      = (known after apply)
+              + outbound_ports_allocated    = (known after apply)
+            }
+
+          + nat_gateway_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+            }
+        }
+
+      + windows_profile {
+          + admin_password = (sensitive value)
+          + admin_username = "sagar"
+        }
+    }
+
+  # azurerm_resource_group.aks will be created
+  + resource "azurerm_resource_group" "aks" {
+      + id       = (known after apply)
+      + location = "centralindia"
+      + name     = "SRI-AKS-RG"
+    }
+
+  # azurerm_role_assignment.acr_attach will be created
+  + resource "azurerm_role_assignment" "acr_attach" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "AcrPull"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = true
+    }
+
+  # azurerm_role_assignment.aks_agw_role will be created
+  + resource "azurerm_role_assignment" "aks_agw_role" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Contributor"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # azurerm_role_assignment.netcontributor-aks-appgw will be created
+  + resource "azurerm_role_assignment" "netcontributor-aks-appgw" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Network Contributor"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # azurerm_role_assignment.netcontributor-aks-appgw-subnet will be created
+  + resource "azurerm_role_assignment" "netcontributor-aks-appgw-subnet" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Network Contributor"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # azurerm_role_assignment.netcontributor-aks-subnet will be created
+  + resource "azurerm_role_assignment" "netcontributor-aks-subnet" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Network Contributor"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.acr.azurerm_container_registry.acr will be created
+  + resource "azurerm_container_registry" "acr" {
+      + admin_enabled                 = false
+      + admin_password                = (sensitive value)
+      + admin_username                = (known after apply)
+      + encryption                    = (known after apply)
+      + export_policy_enabled         = true
+      + id                            = (known after apply)
+      + location                      = "centralindia"
+      + login_server                  = (known after apply)
+      + name                          = "SRIAKSACR"
+      + network_rule_bypass_option    = "AzureServices"
+      + network_rule_set              = (known after apply)
+      + public_network_access_enabled = true
+      + resource_group_name           = "SRI-AKS-RG"
+      + retention_policy              = (known after apply)
+      + sku                           = "Standard"
+      + trust_policy                  = (known after apply)
+      + zone_redundancy_enabled       = false
+    }
+
+  # module.aks_network.azurerm_subnet.subnet["AKS-AppGw-SUBNET"] will be created
+  + resource "azurerm_subnet" "subnet" {
+      + address_prefixes                               = [
+          + "10.30.0.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "AKS-AppGw-SUBNET"
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "SRI-AKS-RG"
+      + virtual_network_name                           = "SRI-AKS-VNET"
+    }
+
+  # module.aks_network.azurerm_subnet.subnet["AKS-SUBNET"] will be created
+  + resource "azurerm_subnet" "subnet" {
+      + address_prefixes                               = [
+          + "10.30.1.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "AKS-SUBNET"
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "SRI-AKS-RG"
+      + virtual_network_name                           = "SRI-AKS-VNET"
+    }
+
+  # module.aks_network.azurerm_virtual_network.vnet will be created
+  + resource "azurerm_virtual_network" "vnet" {
+      + address_space       = [
+          + "10.30.0.0/16",
+        ]
+      + dns_servers         = (known after apply)
+      + guid                = (known after apply)
+      + id                  = (known after apply)
+      + location            = "centralindia"
+      + name                = "SRI-AKS-VNET"
+      + resource_group_name = "SRI-AKS-RG"
+      + subnet              = (known after apply)
+    }
+
+  # module.appgw.azurerm_application_gateway.aks_appgw will be created
+  + resource "azurerm_application_gateway" "aks_appgw" {
+      + id                          = (known after apply)
+      + location                    = "centralindia"
+      + name                        = "SRI-AKS-APPGW"
+      + private_endpoint_connection = (known after apply)
+      + resource_group_name         = "SRI-AKS-RG"
+
+      + autoscale_configuration {
+          + max_capacity = 10
+          + min_capacity = 1
+        }
+
+      + backend_address_pool {
+          + fqdns        = []
+          + id           = (known after apply)
+          + ip_addresses = []
+          + name         = "Backend"
+        }
+
+      + backend_http_settings {
+          + cookie_based_affinity               = "Disabled"
+          + id                                  = (known after apply)
+          + name                                = "BackendSettings"
+          + path                                = "/"
+          + pick_host_name_from_backend_address = false
+          + port                                = 80
+          + probe_id                            = (known after apply)
+          + protocol                            = "Http"
+          + request_timeout                     = 60
+          + trusted_root_certificate_names      = []
+        }
+
+      + frontend_ip_configuration {
+          + id                            = (known after apply)
+          + name                          = "SRI-AKS-APPGW-FRONTENDCONFIG"
+          + private_ip_address            = (known after apply)
+          + private_ip_address_allocation = "Dynamic"
+          + private_link_configuration_id = (known after apply)
+          + public_ip_address_id          = (known after apply)
+        }
+      + frontend_ip_configuration {
+          + id                            = (known after apply)
+          + name                          = "SRI-AKS-APPGW-PRIVATE-FRONTENDCONFIG"
+          + private_ip_address            = "10.30.0.100"
+          + private_ip_address_allocation = "Static"
+          + private_link_configuration_id = (known after apply)
+          + subnet_id                     = (known after apply)
+        }
+
+      + frontend_port {
+          + id   = (known after apply)
+          + name = "port_80"
+          + port = 80
+        }
+
+      + gateway_ip_configuration {
+          + id        = (known after apply)
+          + name      = "agwIpConfig"
+          + subnet_id = (known after apply)
+        }
+
+      + http_listener {
+          + frontend_ip_configuration_id   = (known after apply)
+          + frontend_ip_configuration_name = "listener_FrontendIp"
+          + frontend_port_id               = (known after apply)
+          + frontend_port_name             = "port_80"
+          + host_names                     = []
+          + id                             = (known after apply)
+          + name                           = "Listener"
+          + protocol                       = "Http"
+          + ssl_certificate_id             = (known after apply)
+          + ssl_profile_id                 = (known after apply)
+        }
+
+      + request_routing_rule {
+          + backend_address_pool_id    = (known after apply)
+          + backend_address_pool_name  = "dummyBackend"
+          + backend_http_settings_id   = (known after apply)
+          + backend_http_settings_name = "dummyBackendSettings"
+          + http_listener_id           = (known after apply)
+          + http_listener_name         = "dummyListener"
+          + id                         = (known after apply)
+          + name                       = "dummyRule"
+          + priority                   = 100
+          + redirect_configuration_id  = (known after apply)
+          + rewrite_rule_set_id        = (known after apply)
+          + rule_type                  = "Basic"
+          + url_path_map_id            = (known after apply)
+        }
+
+      + sku {
+          + name = "Standard_v2"
+          + tier = "Standard_v2"
+        }
+
+      + ssl_policy {
+          + cipher_suites        = (known after apply)
+          + disabled_protocols   = (known after apply)
+          + min_protocol_version = (known after apply)
+          + policy_name          = (known after apply)
+          + policy_type          = (known after apply)
+        }
+    }
+
+  # module.pip.azurerm_public_ip.pip will be created
+  + resource "azurerm_public_ip" "pip" {
+      + allocation_method       = "Static"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "centralindia"
+      + name                    = "SRI-AKS-AppGw-PIP"
+      + resource_group_name     = "SRI-AKS-RG"
+      + sku                     = "Standard"
+      + sku_tier                = "Regional"
+    }
+
+Plan: 14 to add, 0 to change, 0 to destroy.
+
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
