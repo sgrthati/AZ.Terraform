@@ -1,0 +1,8 @@
+**/.terraform/
+**/.ssh/id_rsa**
+**/terraform.tfstate
+**/../terraform.tfstate
+**/terraform.tfstate.backup
+**/.terraform.tfstate.lock.info
+**/.ssh/known_hosts
+**/.terraform.lock.hcl
