@@ -111,7 +111,7 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
   }    
   }
 resource "azurerm_kubernetes_cluster_node_pool" "add_pool" {
-  count = "${var.add_pool != "" ? 1 : null}"
+  count = "${var.add_pool != "" ? 1 : 0}"
   name                  = "pool${count.index}"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks-cluster.id
   vm_size               = "Standard_B2s"
