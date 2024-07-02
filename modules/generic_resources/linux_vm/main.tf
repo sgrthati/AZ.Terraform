@@ -9,7 +9,6 @@ locals {
   pip_name = "${var.pip_name != "" ? var.pip_name : "${var.resource_group_name}-vm-pip"}"
   nic_name = "${var.nic_name != "" ? var.nic_name : "${var.resource_group_name}-vm-nic"}"
   vm_name = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm"}"
-  key_data = file("${var.ssh_key_path}")
   lb_backend_pool = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm-backend_pool"}"
 
   tags = "${merge(
