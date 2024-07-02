@@ -135,6 +135,7 @@ module "pr_dns_zn" {
 }
 #Private DNS Record Creation for VMs
 resource "azurerm_private_dns_a_record" "dns_record" {
+  depends_on = [ module.pr_dns_zn ]
   count = var.dns_enabled ==true ? var.node_count : 0
   name                = var.vm_name == "" ? "${local.vm_name}-${count.index + 1}" : "${var.vm_name}-${count.index + 1}"
   zone_name           = var.dns_name
