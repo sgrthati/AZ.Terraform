@@ -28,6 +28,11 @@ variable "ssh_public_key" {
   description = "value"
   default = "./.ssh/id_rsa.pub"
 }
+
+variable "add_pool" {
+  description = "if true,it will create additional pool"
+  default = ""
+}
 # variable "client_id" {
 #   type=string
 #   description="Azure Service Principal client id"

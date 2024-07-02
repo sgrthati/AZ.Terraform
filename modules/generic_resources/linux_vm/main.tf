@@ -26,12 +26,11 @@ resource "tls_private_key" "pk" {
 resource "local_file" "private_key_pem" {
   content  = tls_private_key.pk.private_key_openssh
   filename = "${path.cwd}/keys/private_key"
-  file_permission = "600"
 }
 #restricting permissions for privatekey
 resource "null_resource" "set_private_key_permissions" {
   provisioner "local-exec" {
-    command = "chmod 600 ${path.cwd}/keys/private_key"
+    command = "chmod 400 ${path.cwd}/keys/private_key"
   }
 
   triggers = {
