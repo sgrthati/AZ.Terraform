@@ -25,12 +25,12 @@ resource "tls_private_key" "pk" {
 #Private Key
 resource "local_file" "private_key_pem" {
   content  = tls_private_key.pk.private_key_openssh
-  filename = "${path.module}/private_key"
+  filename = "${path.cwd}/keys/private_key"
 }
 #Public Key
 resource "local_file" "public_key_openssh" {
   content  = tls_private_key.pk.public_key_openssh
-  filename = "${path.module}/public_key.pub"
+  filename = "${path.cwd}/keys/public_key.pub"
 }
 #VNET module
 module "vnet" {
