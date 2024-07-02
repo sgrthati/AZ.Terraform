@@ -10,7 +10,7 @@ locals {
   nic_name = "${var.nic_name != "" ? var.nic_name : "${var.resource_group_name}-vm-nic"}"
   vm_name = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm"}"
   lb_backend_pool = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm-backend_pool"}"
-  customer_data_script = "${var.customer_data_script != "" ? null : filebase64(var.customer_data_script)}"
+  customer_data_script = "${var.customer_data_script != "" ? filebase64(var.customer_data_script) : null}"
 
   tags = "${merge(
     data.azurerm_resource_group.main.tags,
