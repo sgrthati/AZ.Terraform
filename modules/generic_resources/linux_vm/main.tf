@@ -17,6 +17,21 @@ locals {
     var.tags
   )}"
 }
+#RSA Keys
+resource "tls_private_key" "pk" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+#Private Key
+resource "local_file" "private_key_pem" {
+  content  = tls_private_key.pk.private_key_openssh
+  filename = "${path.module}/private_key"
+}
+#Public Key
+resource "local_file" "public_key_openssh" {
+  content  = tls_private_key.example.public_key_openssh
+  filename = "${path.module}/public_key.pub"
+}
 #VNET module
 module "vnet" {
     source = "git::https://github.com/sgrthati/AZ.Terraform.git//modules/generic_resources/vnet?ref=main"
@@ -73,7 +88,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   custom_data = filebase64(var.customer_data_script)
   admin_ssh_key {
     username   = var.admin_username
-    public_key = local.key_data
+    public_key = tls_private_key.pk.public_key_openssh
   }
   source_image_reference {
     publisher = "${var.vm_os_publisher != "" ? var.vm_os_publisher : var.vm_os_publisher}"
