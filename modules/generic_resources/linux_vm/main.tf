@@ -29,7 +29,7 @@ resource "local_file" "private_key_pem" {
 }
 #Public Key
 resource "local_file" "public_key_openssh" {
-  content  = tls_private_key.example.public_key_openssh
+  content  = tls_private_key.pk.public_key_openssh
   filename = "${path.module}/public_key.pub"
 }
 #VNET module
