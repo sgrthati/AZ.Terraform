@@ -76,8 +76,7 @@ variable "backend_address_pool_id" {
 }
 variable "customer_data_script" {
   description = "script path"
-  default = "/mnt/c/Users/User/Downloads/cluster/AZ.Projects/terraform/modules/scripts/script.sh"
-  
+  default = ""
 }
 variable "node_count" {
   description = "The number of Nodes to create"

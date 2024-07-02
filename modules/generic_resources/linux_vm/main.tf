@@ -10,6 +10,7 @@ locals {
   nic_name = "${var.nic_name != "" ? var.nic_name : "${var.resource_group_name}-vm-nic"}"
   vm_name = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm"}"
   lb_backend_pool = "${var.vm_name != "" ? var.vm_name : "${var.resource_group_name}-vm-backend_pool"}"
+  customer_data_script = "${var.customer_data_script != "" ? null : filebase64(var.customer_data_script)}"
 
   tags = "${merge(
     data.azurerm_resource_group.main.tags,
@@ -84,7 +85,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   network_interface_ids = [element(azurerm_network_interface.nic.*.id, count.index)]
   admin_username = "${var.admin_username}"
   size             = "${var.vm_size}"
-  custom_data = filebase64(var.customer_data_script)
+  custom_data = local.customer_data_script
   admin_ssh_key {
     username   = var.admin_username
     public_key = tls_private_key.pk.public_key_openssh
