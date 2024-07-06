@@ -19,7 +19,7 @@ variable "resource_group_name" {
 variable "location" {
     default = ""
 }
-variable "allowed_inbound_ports" {
+variable "default_inbound_ports" {
   description = "Map of allowed inbound ports with priorities"
   type = map(object({
     port     = string
@@ -39,4 +39,7 @@ variable "allowed_inbound_ports" {
       priority = 120
     }
   }
+}
+variable "allowed_inbound_ports" {
+  default = {}
 }

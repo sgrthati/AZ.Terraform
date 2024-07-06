@@ -8,6 +8,7 @@ locals {
   VNET_name = "${var.VNET_name != "" ? var.VNET_name : "${var.resource_group_name}-vnet"}"
   subnet_name = "${var.subnet_name != "" ? var.subnet_name : "${var.resource_group_name}-vnet-subnet"}"
   nsg_name = "${var.nsg_name != "" ? var.nsg_name : "${var.resource_group_name}-vnet-nsg"}"
+  allowed_inbound_ports = "${var.allowed_inbound_ports != "" ? var.allowed_inbound_ports : var.default_inbound_ports }"
 }
 
 resource "azurerm_virtual_network" "VNET" {
@@ -30,7 +31,7 @@ resource "azurerm_network_security_group" "NSG" {
   resource_group_name = local.resource_group_name
 
   dynamic "security_rule" {
-    for_each = var.allowed_inbound_ports
+    for_each = local.allowed_inbound_ports
     content {
       name                       = security_rule.key
       priority                   = security_rule.value.priority
