@@ -8,7 +8,7 @@ locals {
   VNET_name = "${var.VNET_name != "" ? var.VNET_name : "${var.resource_group_name}-vnet"}"
   subnet_name = "${var.subnet_name != "" ? var.subnet_name : "${var.resource_group_name}-vnet-subnet"}"
   nsg_name = "${var.nsg_name != "" ? var.nsg_name : "${var.resource_group_name}-vnet-nsg"}"
-  allowed_inbound_ports = "${var.allowed_inbound_ports != "" ? var.allowed_inbound_ports : var.default_inbound_ports }"
+  allowed_inbound_ports = "${length(var.allowed_inbound_ports) > 0 ? var.allowed_inbound_ports : var.default_inbound_ports }"
 }
 
 resource "azurerm_virtual_network" "VNET" {
