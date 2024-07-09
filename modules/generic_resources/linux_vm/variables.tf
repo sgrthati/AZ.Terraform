@@ -154,3 +154,10 @@ variable "boot_diagnostics_storage_uri" {
   default     = ""
   description = "Blob endpoint for the storage account to hold the virtual machine's diagnostic files. This must be the root of a storage account, and not a storage container."
 }
+variable "allowed_inbound_ports" {
+  type = map(object({
+    port     = string
+    priority = number
+  }))
+  default = {}
+}

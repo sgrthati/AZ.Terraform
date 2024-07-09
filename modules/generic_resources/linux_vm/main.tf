@@ -46,6 +46,7 @@ resource "local_file" "public_key_openssh" {
 module "vnet" {
     source = "git::https://github.com/sgrthati/AZ.Terraform.git//modules/generic_resources/vnet?ref=main"
     resource_group_name = local.resource_group_name
+    allowed_inbound_ports = var.allowed_inbound_ports
 }
 #Public IP Resource Creation
 resource "azurerm_public_ip" "pip" {

@@ -8,4 +8,5 @@ module "ProjectX" {
     vm_pip_enabled = true
     dns_enabled = true
     dns_name = "internal.com"
+    allowed_inbound_ports = var.allowed_inbound_ports
 }
