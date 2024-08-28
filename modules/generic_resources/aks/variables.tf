@@ -7,6 +7,10 @@ variable "aks_cluster_name" {
   description = "Name of your AKS cluster"
   default = ""
 }
+variable "user_principal_name" {
+  type = string
+  description = "user principal name"
+}
 variable "service_principal_name" {
   type = string
   description = "Service principal name"

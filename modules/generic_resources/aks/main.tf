@@ -44,6 +44,7 @@ resource "azuread_service_principal" "main" {
   ]
 }
 
+
 # Creates and holds Service Principle Id created in previous  step to be used by other resources
 resource "azuread_service_principal_password" "main" {
   service_principal_id = azuread_service_principal.main.object_id
@@ -60,6 +61,22 @@ resource "azurerm_role_assignment" "rolespn" {
     azuread_service_principal.main
   ]
 }
+data "azuread_user" "self" {
+    user_principal_name = var.user_principal_name
+}
+resource "azuread_group" "k8sadmins" {
+  display_name = "Kubernetes Admins"
+  members = [
+    data.azuread_user.self.object_id,
+  ]
+  security_enabled = true
+}
+resource "azurerm_role_assignment" "k8sadmins" {
+  depends_on           = [azurerm_resource_group.main]
+  scope                = data.azurerm_resource_group.main.id
+  role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
+  principal_id         = azuread_group.k8sadmins.object_id
+}
 
 resource "azurerm_kubernetes_cluster" "aks-cluster" {
   name                  = local.aks_cluster_name
@@ -71,8 +88,16 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
   depends_on = [
     azuread_service_principal.main,
     azuread_service_principal_password.main,
-    azurerm_role_assignment.rolespn
+    azurerm_role_assignment.rolespn,
+    azurerm_role_assignment.k8sadmins,
+    data.azuread_user.self,
+    azazuread_group.k8sadmins
   ]
+  azure_active_directory_role_based_access_control {
+    azure_rbac_enabled     = true
+    admin_group_object_ids = [azuread_group.k8sadmins.id]
+  }
+  local_account_disabled = true
   
   default_node_pool {
     name       = "defaultpool"
@@ -108,7 +133,7 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
   network_profile {
       network_plugin = "azure"
       load_balancer_sku = "standard"
-  }    
+  } 
   }
 resource "azurerm_kubernetes_cluster_node_pool" "add_pool" {
   count = "${var.add_pool != "" ? 1 : 0}"
