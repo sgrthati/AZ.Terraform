@@ -72,7 +72,7 @@ resource "azuread_group" "k8sadmins" {
   security_enabled = true
 }
 resource "azurerm_role_assignment" "k8sadmins" {
-  depends_on           = [azurerm_resource_group.main]
+  depends_on           = [data.azurerm_resource_group.main]
   scope                = data.azurerm_resource_group.main.id
   role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
   principal_id         = azuread_group.k8sadmins.object_id
