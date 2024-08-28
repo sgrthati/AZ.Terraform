@@ -91,7 +91,7 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
     azurerm_role_assignment.rolespn,
     azurerm_role_assignment.k8sadmins,
     data.azuread_user.self,
-    azazuread_group.k8sadmins
+    azuread_group.k8sadmins
   ]
   azure_active_directory_role_based_access_control {
     azure_rbac_enabled     = true
